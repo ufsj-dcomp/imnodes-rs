@@ -6,8 +6,6 @@ As soon as you enter a nested scope you are not allowed to call methods from the
 This is why every method which takes a closure and calls it with a new scope takes `&mut self`.
 */
 
-use std::mem::MaybeUninit;
-
 use crate::{
     sys, AttributeId, EditorContext, Hoverable, InputPinId, Link, LinkId, MiniMapLocation, NodeId,
     OutputPinId, PinId, PinShape,

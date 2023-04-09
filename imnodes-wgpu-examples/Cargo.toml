@@ -10,6 +10,6 @@ imnodes = { path = "../" }
 wgpu = "0.15.1"
 winit = {version = "0.27.1", features = ["x11"] }
 futures = "0.3.21"
-imgui = "0.10.0"
-imgui-winit-support = { version = "0.10.0" }
+imgui = "0.11.0"
+imgui-winit-support = { version = "0.11.0" }
 imgui-wgpu = "0.22.0"
