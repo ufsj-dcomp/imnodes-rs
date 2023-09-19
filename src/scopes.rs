@@ -1,5 +1,5 @@
 /*!
-This module contains LinkId(0)es.
+This module contains all the scopes.
 The cpp code requires that certain methods may only be called in certain scopes.
 
 As soon as you enter a nested scope you are not allowed to call methods from the other scope inside the nested one.
@@ -81,8 +81,8 @@ impl OuterScope {
     #[doc(alias = "GetSelectedNodes")]
     pub fn selected_nodes(&self) -> Vec<NodeId> {
         let nr_nodes = self.num_selected_nodes() as usize;
-        let mut nodes = Vec::with_capacity(nr_nodes);
-        unsafe { sys::imnodes_GetSelectedNodes(nodes.as_mut_ptr() as _); nodes.set_len(nr_nodes) };
+        let mut nodes = vec![NodeId { id: 0 }; nr_nodes];
+        unsafe { sys::imnodes_GetSelectedNodes(nodes.as_mut_ptr() as _) };
         nodes
     }
 
@@ -90,8 +90,8 @@ impl OuterScope {
     #[doc(alias = "GetSelectedLinks")]
     pub fn selected_links(&self) -> Vec<LinkId> {
         let nr_links = self.num_selected_links() as usize;
-        let mut links = Vec::with_capacity(nr_links);
-        unsafe { sys::imnodes_GetSelectedLinks(links.as_mut_ptr() as _); links.set_len(nr_links) };
+        let mut links = vec![LinkId { id: 0 }; nr_links];
+        unsafe { sys::imnodes_GetSelectedLinks(links.as_mut_ptr() as _) };
         links
     }
 
@@ -124,10 +124,18 @@ impl OuterScope {
 
         if is_created {
             Some(Link {
-                start_node: NodeId(started_at_node_id),
-                end_node: NodeId(ended_at_node_id),
-                start_pin: OutputPinId(started_at_attribute_id),
-                end_pin: InputPinId(ended_at_attribute_id),
+                start_node: NodeId {
+                    id: started_at_node_id,
+                },
+                end_node: NodeId {
+                    id: ended_at_node_id,
+                },
+                start_pin: OutputPinId {
+                    id: started_at_attribute_id,
+                },
+                end_pin: InputPinId {
+                    id: ended_at_attribute_id,
+                },
                 craeated_from_snap: created_from_snap,
             })
         } else {
@@ -140,7 +148,7 @@ impl OuterScope {
     pub fn get_dropped_link(&self) -> Option<LinkId> {
         let mut id: i32 = -1;
         if unsafe { sys::imnodes_IsLinkDestroyed(&mut id as _) } {
-            Some(LinkId(id))
+            Some(LinkId { id })
         } else {
             None
         }
@@ -152,7 +160,7 @@ impl OuterScope {
         let mut id: i32 = -1;
         let ok = unsafe { sys::imnodes_IsPinHovered(&mut id as _) };
         if ok {
-            Some(PinId(id))
+            Some(PinId { id })
         } else {
             None
         }
@@ -164,7 +172,7 @@ impl OuterScope {
         let mut id: i32 = -1;
         let ok = unsafe { sys::imnodes_IsLinkHovered(&mut id as _) };
         if ok {
-            Some(LinkId(id))
+            Some(LinkId { id })
         } else {
             None
         }
@@ -176,7 +184,7 @@ impl OuterScope {
         let mut id: i32 = -1;
         let ok = unsafe { sys::imnodes_IsAnyAttributeActive(&mut id as _) };
         if ok {
-            Some(AttributeId(id))
+            Some(AttributeId { id })
         } else {
             None
         }
@@ -188,7 +196,7 @@ impl OuterScope {
         let mut id: i32 = -1;
         let ok = unsafe { sys::imnodes_IsLinkStarted(&mut id as _) };
         if ok {
-            Some(PinId(id))
+            Some(PinId { id })
         } else {
             None
         }
@@ -200,7 +208,7 @@ impl OuterScope {
         let mut id: i32 = -1;
         let ok = unsafe { sys::imnodes_IsLinkDropped(&mut id as _, including_detached_links) };
         if ok {
-            Some(PinId(id))
+            Some(PinId { id })
         } else {
             None
         }
@@ -255,7 +263,7 @@ impl EditorScope {
         let mut id: i32 = -1;
         let ok = unsafe { sys::imnodes_IsAnyAttributeActive(&mut id as _) };
         if ok {
-            Some(AttributeId(id))
+            Some(AttributeId { id })
         } else {
             None
         }

@@ -17,6 +17,11 @@ impl EditorContext {
         self
     }
 
+    /// generate Singleton IdentifierGenerator
+    pub fn new_identifier_generator(&self) -> crate::IdentifierGenerator {
+        crate::IdentifierGenerator::new()
+    }
+
     /// GetStyle
     /// TODO see Style_destroy, make sure this does not leak
     /// Returns the global style struct. See the struct declaration for default values.
