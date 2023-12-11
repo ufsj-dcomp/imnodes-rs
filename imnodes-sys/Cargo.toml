@@ -10,7 +10,7 @@ build = "build.rs"
 links = "imnodes"
 
 [dependencies]
-imgui-sys = "0.11.0"
+imgui-sys = { git = "https://github.com/syndelis/imgui-rs", branch = "fix/alpha-blending" }
 
 [build-dependencies]
 cc = "1.0.73"

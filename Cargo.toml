@@ -10,7 +10,7 @@ readme = "README.md"
 
 [dependencies]
 imnodes-sys = { version = "0.1.0", path = "imnodes-sys" }
-imgui = "0.11.0"
+imgui = { git = "https://github.com/syndelis/imgui-rs", branch = "fix/alpha-blending" }
 
 [features]
 # export all low level functions
