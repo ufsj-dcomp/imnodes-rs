@@ -10,16 +10,9 @@ readme = "README.md"
 
 [dependencies]
 imnodes-sys = { version = "0.1.0", path = "imnodes-sys" }
-imgui = { git = "https://github.com/syndelis/imgui-rs", branch = "fix/alpha-blending" }
+imgui = { workspace = true }
 
 [features]
 # export all low level functions
 include_low_level_bindings = []
 
-[workspace]
-members = [
-    "imnodes-sys",
-    # Re-add when less broken
-    # "imnodes-wgpu-examples",
-    "imnodes-sys-bindgen",
-]
