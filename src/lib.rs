@@ -191,6 +191,12 @@ impl NodeId {
 
         pos
     }
+
+    /// Whether this node is selected or not
+    #[doc(alias = "IsNodeSelected")]
+    pub fn is_selected(&self) -> bool {
+        unsafe { imnodes_sys::imnodes_IsNodeSelected(self.id) }
+    }
 }
 
 impl Into<i32> for NodeId {
