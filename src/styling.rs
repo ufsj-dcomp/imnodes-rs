@@ -61,32 +61,27 @@ pub enum ColorStyle {
 impl ColorStyle {
     pub const COUNT: u32 = sys::ImNodesCol__ImNodesCol_COUNT;
 
-    #[must_use = "need to call pop on ColorToken befor going out of scope"]
-    #[doc(alias = "PushColorStyle")]
-    pub fn push_color<C: Into<ImColor32>>(self, color: C, _: &EditorContext) -> ColorToken {
+    pub fn push_color<C: Into<ImColor32>>(self, color: C) -> ColorToken {
         let color: ImColor32 = color.into();
         unsafe { sys::imnodes_PushColorStyle(self as i32, color.into()) };
-        ColorToken { ended: false }
+        ColorToken(())
     }
 }
 
 #[derive(Debug, Clone, Eq, PartialEq, Hash)]
-pub struct ColorToken {
-    ended: bool,
-}
+pub struct ColorToken(());
 
 impl ColorToken {
     #[doc(alias = "PopColorStyle")]
-    pub fn pop(mut self) {
-        self.ended = true;
-        unsafe { sys::imnodes_PopColorStyle() };
-    }
+    /// Pops this color from the colot style stack.
+    ///
+    /// You can also let this token go out of scope for the same effect.
+    pub fn pop(self) { }
 }
 
-// this could implicitly call pop/ pop but thats probably hiding bugs...
 impl Drop for ColorToken {
     fn drop(&mut self) {
-        assert!(self.ended, "did not call pop on a color token");
+        unsafe { sys::imnodes_PopColorStyle() };
     }
 }
 
