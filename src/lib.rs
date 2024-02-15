@@ -86,7 +86,7 @@ impl IdentifierGenerator {
 ///
 /// TODO document what precise uniqueness constraints do these have
 #[repr(C)]
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, PartialOrd, Ord)]
 pub struct AttributeId {
     id: i32,
 }
@@ -118,7 +118,7 @@ pub enum CoordinateSystem {
 
 /// Identifier for a Node
 #[repr(C)]
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, PartialOrd, Ord)]
 pub struct NodeId {
     id: i32,
 }
@@ -208,7 +208,7 @@ impl Into<i32> for NodeId {
 /// either input or output pin
 ///
 /// like attribute_id in the original source
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, PartialOrd, Ord)]
 pub struct PinId {
     id: i32,
 }
@@ -237,7 +237,7 @@ impl PinId {
 }
 
 /// Id for an input
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, PartialOrd, Ord)]
 pub struct InputPinId {
     id: i32,
 }
@@ -255,7 +255,7 @@ impl Into<PinId> for InputPinId {
 }
 
 /// Id for an output
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, PartialOrd, Ord)]
 pub struct OutputPinId {
     id: i32,
 }
@@ -273,7 +273,7 @@ impl Into<PinId> for OutputPinId {
 }
 
 /// Id for a link
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq, PartialOrd, Ord)]
 pub struct LinkId {
     id: i32,
 }
