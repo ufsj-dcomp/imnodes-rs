@@ -1,6 +1,6 @@
 [package]
 name = "imnodes"
-version = "0.2.1"
+version = "0.3.1"
 edition = "2021"
 authors = ["Benedikt Mandelkow", "imnodes-rs contributors"]
 description = "Rust bindings to https://github.com/Nelarius/imnodes"
@@ -9,8 +9,8 @@ categories = ["gui", "api-bindings"]
 readme = "README.md"
 
 [dependencies]
-imnodes-sys = { version = "0.1.0", path = "imnodes-sys" }
-imgui = { git = "https://github.com/syndelis/imgui-rs", branch = "fix/alpha-blending" }
+imnodes-sys = { version = "0.1.0", path = "imnodes-sys2", package="imnodes-sys2" }
+imgui = "0.11.0"
 
 [features]
 # export all low level functions
@@ -18,8 +18,8 @@ include_low_level_bindings = []
 
 [workspace]
 members = [
-    "imnodes-sys",
+    "imnodes-sys2",
     # Re-add when less broken
     # "imnodes-wgpu-examples",
-    "imnodes-sys-bindgen",
+    "imnodes-sys-bindgen", "imnodes-sys2",
 ]
